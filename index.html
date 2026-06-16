@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gürfidan Hair Saloon | Isparta Premium Erkek Kuaförü</title>
+    
+    <!-- Premium Fontlar (Sert, Maskülen ve Karakterli) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Premium FontAwesome İkon Seti (Emoji Kesinlikle Yok) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- =====================================================================
+     PARÇA 2: CSS (LÜKS TASARIM, UZUN MİMARİ VE BENZERSİZ ANİMASYONLAR)
+     ===================================================================== -->
+<style>
+    :root {
+        --dark-void: #030304;
+        --coal: #0a0a0b;
+        --steel: #141416;
+        --gold-solid: #C5A059;
+        --gold-glow: rgba(197, 160, 89, 0.15);
+        --glass-border: rgba(255, 255, 255, 0.04);
+        --text-muted: #888c94;
+        --text-bright: #e2e4e9;
+    }
+
+    * {
+        margin: 0; padding: 0; box-sizing: border-box;
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: var(--dark-void);
+        color: var(--text-bright);
+        overflow-x: hidden;
+        line-height: 1.7;
+    }
+
+    /* Özel Erkeksi Kaydırma Çubuğu (Scrollbar) */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--dark-void); }
+    ::-webkit-scrollbar-thumb { background: var(--steel); border: 1px solid var(--gold-solid); }
+
+    /* Arka Plan Görselleri Yönetimi (pc.png / mobil.png) */
+    .bg-layer {
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        background-image: url('pc.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        z-index: -10;
+        filter: grayscale(30%) contrast(110%);
+    }
+
+    @media (max-width: 768px) {
+        .bg-layer { background-image: url('mobil.png'); }
+    }
+
+    /* Film Noir (Karanlık Sinematik) Filtresi */
+    .bg-layer::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(180deg, rgba(3,3,4,0.88) 0%, rgba(3,3,4,0.96) 100%);
+    }
+
+    /* HTML5 Yağmur Canvas Katmanı */
+    #rain-canvas {
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        pointer-events: none;
+        z-index: -5;
+    }
+
+    /* --- ÜST BAR (NAVBAR) --- */
+    .navbar {
+        position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+        background: rgba(3, 3, 4, 0.8);
+        backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+        border-bottom: 1px solid var(--glass-border);
+        padding: 25px 0; transition: all 0.5s ease;
+    }
+    .nav-container {
+        max-width: 1500px; margin: 0 auto; padding: 0 50px;
+        display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo {
+        font-family: 'Cinzel', serif; font-size: 1.8rem; font-weight: 800;
+        letter-spacing: 4px; color: #fff; text-decoration: none; text-transform: uppercase;
+    }
+    .logo span { color: var(--gold-solid); }
+    .nav-links { display: flex; gap: 40px; }
+    .nav-links a {
+        color: var(--text-muted); text-decoration: none; font-size: 0.85rem;
+        text-transform: uppercase; letter-spacing: 2px; font-weight: 600;
+        position: relative; transition: color 0.3s;
+    }
+    .nav-links a::after {
+        content: ''; position: absolute; bottom: -6px; left: 0; width: 0; height: 1px;
+        background-color: var(--gold-solid); transition: width 0.3s;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* Sert Köşeli Çağrı Butonu */
+    .btn-gold-outline {
+        border: 1px solid var(--gold-solid); padding: 12px 30px;
+        color: var(--gold-solid); text-decoration: none; font-size: 0.8rem;
+        text-transform: uppercase; letter-spacing: 2px; font-weight: 700;
+        transition: all 0.4s ease; background: transparent;
+        display: inline-flex; align-items: center; gap: 10px;
+    }
+    .btn-gold-outline:hover {
+        background: var(--gold-solid); color: var(--coal);
+        box-shadow: 0 0 25px var(--gold-glow);
+    }
+
+    @media (max-width: 1024px) { .nav-links { display: none; } }
+
+    /* --- SİTENİN UZUN DURMASINI SAĞLAYAN MİMARİ --- */
+    section {
+        min-height: 120vh; /* Ekran boyutunu aşarak uzunluk yaratır */
+        padding: 180px 20px 100px 20px;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        position: relative;
+    }
+
+    /* Dikey Bölüm Çizgileri (Aşağı akışı vurgular) */
+    .vertical-divider {
+        width: 1px; height: 150px;
+        background: linear-gradient(180deg, var(--gold-solid) 0%, transparent 100%);
+        margin: 0 auto 60px auto;
+    }
+
+    /* Lüks Kutu (Glassmorphism) */
+    .premium-box {
+        background: rgba(10, 10, 11, 0.5);
+        backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+        border: 1px solid var(--glass-border);
+        padding: 100px 80px; width: 100%; max-width: 1300px;
+        box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+        position: relative; z-index: 5;
+    }
+    /* Kutulara maskülen köşe detayı */
+    .premium-box::before, .premium-box::after {
+        content: ''; position: absolute; width: 20px; height: 20px; border: 1px solid var(--gold-solid);
+    }
+    .premium-box::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+    .premium-box::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+    /* Ortak Başlıklar */
+    .section-label {
+        display: inline-block; color: var(--gold-solid); font-size: 0.85rem;
+        letter-spacing: 5px; text-transform: uppercase; margin-bottom: 25px; font-weight: 700;
+    }
+    .section-title {
+        font-family: 'Cinzel', serif; font-size: 3.5rem; font-weight: 700;
+        color: #fff; margin-bottom: 60px; letter-spacing: 2px; line-height: 1.1; text-transform: uppercase;
+    }
+
+    /* --- HERO BÖLÜMÜ --- */
+    .hero-section { min-height: 130vh; text-align: center; justify-content: center; }
+    .hero-title {
+        font-family: 'Cinzel', serif; font-size: 6.5rem; font-weight: 800;
+        line-height: 1; letter-spacing: 6px; margin-bottom: 10px; color: #fff;
+    }
+    .hero-subtitle {
+        font-family: 'Cinzel', serif; font-size: 2.2rem; font-weight: 500;
+        letter-spacing: 16px; margin-bottom: 50px; color: var(--text-muted);
+    }
+    .hero-specs {
+        display: flex; justify-content: center; gap: 40px; margin-bottom: 60px;
+        font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; color: var(--text-bright);
+    }
+    .hero-specs i { color: var(--gold-solid); margin-right: 10px; font-size: 1.2rem; }
+
+    /* --- HAKKIMIZDA --- */
+    .about-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px; align-items: center; }
+    .about-text p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.9; margin-bottom: 35px; }
+    .stat-list { display: flex; flex-direction: column; gap: 50px; }
+    .stat-item { border-left: 2px solid var(--gold-solid); padding-left: 30px; }
+    .stat-item h3 { font-family: 'Cinzel', serif; font-size: 3.5rem; color: var(--gold-solid); line-height: 1; margin-bottom: 10px; }
+    .stat-item p { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 3px; color: #666; }
+
+    /* --- HİZMETLER --- */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+    .service-block {
+        background: rgba(20, 20, 22, 0.4); border: 1px solid var(--glass-border);
+        padding: 60px 40px; position: relative; transition: all 0.5s ease;
+    }
+    .service-block::before {
+        content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 0;
+        background: var(--gold-solid); transition: height 0.5s ease;
+    }
+    .service-block:hover::before { height: 100%; }
+    .service-block:hover { background: rgba(20, 20, 22, 0.8); transform: translateY(-10px); border-color: rgba(197, 160, 89, 0.3); }
+    .service-block i { font-size: 2.8rem; color: var(--gold-solid); margin-bottom: 35px; display: block; }
+    .service-block h3 { font-family: 'Cinzel', serif; font-size: 1.4rem; color: #fff; margin-bottom: 20px; letter-spacing: 1px; }
+    .service-block p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* --- YORUMLAR (SAĞA AKAN) --- */
+    .marquee-container {
+        width: 100%; overflow: hidden; position: relative; padding: 20px 0;
+        mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    }
+    .marquee-track {
+        display: flex; width: max-content;
+        /* Yön sağa doğru olduğu için translateX ters çalışır */
+        animation: scrollRightToLeft 50s linear infinite reverse;
+    }
+    @keyframes scrollRightToLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    
+    .review-card {
+        background: rgba(10, 10, 11, 0.9); border: 1px solid var(--glass-border);
+        width: 420px; margin: 0 25px; padding: 50px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.6); transition: border-color 0.3s;
+    }
+    .review-card:hover { border-color: var(--gold-solid); }
+    .stars { color: var(--gold-solid); margin-bottom: 25px; font-size: 1rem; }
+    .review-text { font-style: italic; color: #ccc; font-size: 1rem; line-height: 1.8; margin-bottom: 30px; }
+    .review-author { font-family: 'Cinzel', serif; font-weight: 700; color: var(--gold-solid); text-align: right; letter-spacing: 2px; }
+
+    /* --- SSS BÖLÜMÜ --- */
+    .faq-layout { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 30px; }
+    .faq-row { border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 20px; }
+    .faq-head { display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 10px 0; }
+    .faq-head h3 { font-family: 'Cinzel', serif; font-size: 1.3rem; color: #fff; font-weight: 500; letter-spacing: 1px; }
+    .faq-icon {
+        width: 35px; height: 35px; border: 1px solid var(--glass-border);
+        display: flex; align-items: center; justify-content: center; transition: all 0.4s;
+    }
+    .faq-icon i { color: var(--gold-solid); transition: transform 0.4s; }
+    .faq-body { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); }
+    .faq-body p { color: var(--text-muted); font-size: 1rem; line-height: 1.8; padding-top: 20px; }
+    .faq-row.active .faq-body { max-height: 300px; transition: max-height 0.5s ease-in-out; }
+    .faq-row.active .faq-icon { border-color: var(--gold-solid); background: var(--gold-solid); }
+    .faq-row.active .faq-icon i { color: var(--coal); transform: rotate(45deg); }
+
+    /* --- İLETİŞİM & ÇALIŞMA SAATLERİ --- */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+    .hours-list { list-style: none; }
+    .hours-list li {
+        display: flex; justify-content: space-between; padding: 20px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03); font-size: 1rem; letter-spacing: 1px;
+    }
+    .hours-list li span:first-child { font-family: 'Cinzel', serif; color: #fff; }
+    .hours-list li.open span:last-child { color: var(--gold-solid); font-weight: 600; }
+    .hours-list li.closed span:last-child { color: #dc2626; font-weight: 600; }
+    
+    .contact-details { display: flex; flex-direction: column; gap: 50px; justify-content: center; }
+    .contact-item { display: flex; align-items: center; gap: 30px; }
+    .contact-icon {
+        width: 70px; height: 70px; border: 1px solid var(--gold-solid);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.8rem; color: var(--gold-solid);
+    }
+    .contact-text h4 { font-size: 0.85rem; color: #666; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 5px; }
+    .contact-text p { font-family: 'Cinzel', serif; font-size: 1.4rem; color: #fff; font-weight: 700; letter-spacing: 2px;}
+    
+    .btn-solid-gold {
+        background: var(--gold-solid); color: var(--coal);
+        padding: 22px 50px; text-decoration: none; font-weight: 700;
+        letter-spacing: 3px; text-transform: uppercase; font-size: 0.9rem;
+        display: inline-flex; align-items: center; justify-content: center; gap: 15px;
+        transition: all 0.4s; margin-top: 20px;
+    }
+    .btn-solid-gold:hover { background: #fff; box-shadow: 0 15px 30px var(--gold-glow); transform: translateY(-3px); }
+
+    /* --- SAĞ ALT YÜZEN PANEL (SERT KÖŞELİ) --- */
+    .floating-panel { position: fixed; bottom: 40px; right: 40px; display: flex; flex-direction: column; gap: 15px; z-index: 2000; }
+    .float-btn {
+        width: 65px; height: 65px; background: var(--steel); border: 1px solid var(--glass-border);
+        display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.8rem;
+        text-decoration: none; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+    }
+    .float-btn:hover { transform: scale(1.1) translateX(-10px); }
+    .float-wa { border-color: #25D366; } .float-wa i { color: #25D366; } .float-wa:hover { background: #25D366; color: #000; }
+    .float-wa:hover i { color: #000; }
+    .float-ig { border-color: #E1306C; } .float-ig i { color: #E1306C; } .float-ig:hover { background: #E1306C; color: #fff; }
+    .float-ig:hover i { color: #fff; }
+    .float-ph { background: var(--gold-solid); color: var(--coal); border-color: var(--gold-solid); }
+    .float-ph:hover { background: #fff; }
+
+    /* --- KİMSENİN GÖRMEDİĞİ 6 FARKLI PREMIUM ANİMASYON --- */
+    
+    /* 1. Hero: Ultra Bulanıklıktan ve Büyükten Küçülerek Netleşme */
+    .anim-blur-scale { opacity: 0; filter: blur(40px); transform: scale(1.15); transition: all 2s cubic-bezier(0.16, 1, 0.3, 1); }
+    .anim-blur-scale.active { opacity: 1; filter: blur(0); transform: scale(1); }
+
+    /* 2. Hikaye: 3D Asimetrik Dönüş ile Giriş */
+    .anim-3d-rotate { opacity: 0; transform: perspective(1500px) rotateY(-25deg) translateX(100px); transition: all 1.5s cubic-bezier(0.25, 1, 0.5, 1); }
+    .anim-3d-rotate.active { opacity: 1; transform: perspective(1500px) rotateY(0deg) translateX(0); }
+
+    /* 3. Hizmetler: Aşağıdan Yukarıya Zarf Katlanması */
+    .anim-fold-up { opacity: 0; transform: perspective(1000px) rotateX(-60deg) translateY(80px); transform-origin: top; transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
+    .anim-fold-up.active { opacity: 1; transform: perspective(1000px) rotateX(0deg) translateY(0); }
+
+    /* 4. Yorumlar: Siyah Beyazdan Renkliye Keskin Geçiş */
+    .anim-noir-fade { opacity: 0; filter: grayscale(100%) brightness(0.2); transform: translateY(40px); transition: all 1.6s ease; }
+    .anim-noir-fade.active { opacity: 1; filter: grayscale(0%) brightness(1); transform: translateY(0); }
+
+    /* 5. SSS: Geometrik Çokgen (Polygon) Kesim ile Açılma */
+    .anim-clip-polygon { opacity: 0; clip-path: polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%); transition: all 1.5s cubic-bezier(0.77, 0, 0.175, 1); }
+    .anim-clip-polygon.active { opacity: 1; clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); }
+
+    /* 6. İletişim: Ters Eksen (Z) Kayması */
+    .anim-z-slide { opacity: 0; transform: translateZ(-500px) translateY(100px); transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1); }
+    .anim-z-slide.active { opacity: 1; transform: translateZ(0) translateY(0); }
+
+    /* Gecikmeler */
+    .del-1 { transition-delay: 0.15s; } .del-2 { transition-delay: 0.3s; } .del-3 { transition-delay: 0.45s; }
+
+    /* Mobil Düzenlemeler */
+    @media (max-width: 992px) {
+        .hero-title { font-size: 3.5rem; }
+        .hero-subtitle { font-size: 1.2rem; letter-spacing: 8px; }
+        .hero-specs { flex-direction: column; gap: 20px; }
+        .premium-box { padding: 60px 30px; }
+        .about-layout, .contact-grid { grid-template-columns: 1fr; gap: 60px; }
+        section { padding: 120px 15px 80px 15px; }
+        .floating-panel { bottom: 20px; right: 20px; }
+        .float-btn { width: 55px; height: 55px; font-size: 1.4rem; }
+    }
+</style>
+</head>
+<body>
+
+<!-- =====================================================================
+     PARÇA 1: HTML (İSKELET VE İÇERİK - MASKÜLEN YAPI)
+     ===================================================================== -->
+
+    <!-- Görsel ve Renk Katmanı -->
+    <div class="bg-layer"></div>
+    
+    <!-- Yağmur Animasyonu İçin Özel Katman -->
+    <canvas id="rain-canvas"></canvas>
+
+    <!-- ÜST BAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">GÜRFİDAN<span>.</span></a>
+            <nav class="nav-links">
+                <a href="#ana-sayfa">Giriş</a>
+                <a href="#hikaye">Gelenek</a>
+                <a href="#hizmetler">Zanaat</a>
+                <a href="#yorumlar">Müdavimler</a>
+                <a href="#sss">S.S.S.</a>
+                <a href="#iletisim">Erişim</a>
+            </nav>
+            <a href="tel:05342091203" class="btn-gold-outline"><i class="fa-solid fa-phone-volume"></i> Rezervasyon</a>
+        </div>
+    </header>
+
+    <!-- SAĞ ALT YÜZEN PANEL -->
+    <div class="floating-panel">
+        <a href="https://wa.me/905342091203" class="float-btn float-wa" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="https://www.instagram.com/gurfidanhairsaloon/" class="float-btn float-ig" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="tel:05342091203" class="float-btn float-ph"><i class="fa-solid fa-phone"></i></a>
+    </div>
+
+    <!-- 1. GİRİŞ BÖLÜMÜ -->
+    <section id="ana-sayfa" class="hero-section anim-blur-scale">
+        <div class="premium-box" style="padding: 120px 40px; border:none; background: transparent; box-shadow: none;">
+            <div class="vertical-divider"></div>
+            <h1 class="hero-title">GÜRFİDAN</h1>
+            <h2 class="hero-subtitle">HAIR SALOON</h2>
+            <div class="hero-specs">
+                <span><i class="fa-solid fa-chess-king"></i> Premium Kuaför</span>
+                <span><i class="fa-solid fa-clock"></i> 24 Saat Açık</span>
+                <span><i class="fa-solid fa-location-crosshairs"></i> Isparta</span>
+            </div>
+            <div class="vertical-divider" style="margin-bottom: 0;"></div>
+        </div>
+    </section>
+
+    <!-- 2. HİKAYE BÖLÜMÜ -->
+    <section id="hikaye">
+        <div class="premium-box anim-3d-rotate">
+            <div class="about-layout">
+                <div class="about-text">
+                    <span class="section-label"><i class="fa-solid fa-shield-halved"></i> Zanaat ve Karakter</span>
+                    <h2 class="section-title">Erkeklerin<br>Ortak Noktası</h2>
+                    <p>Gürfidan Hair Saloon, klasik bir berber koltuğunun ötesinde, Isparta'da kalitenin ve keskin hatların buluştuğu lüks bir yaşam alanıdır. Gece ya da gündüz fark etmeksizin, günün 24 saati aynı ciddiyet ve vizyonla hizmet veriyoruz.</p>
+                    <p>Burada feminen dokunuşlara yer yok. Keskin makas izleri, ustura hassasiyeti ve erkeğin yüz anatomisine tam oturan maskülen tasarımlar için kurulan bu özel atmosfere davetlisiniz.</p>
+                </div>
+                <div class="stat-list">
+                    <div class="stat-item">
+                        <h3>24/6</h3>
+                        <p>Kesintisiz Operasyon</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>%100</h3>
+                        <p>Kişiselleştirilmiş İmaj</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. HİZMETLER BÖLÜMÜ -->
+    <section id="hizmetler">
+        <div class="premium-box" style="background: transparent; border:none; box-shadow:none;">
+            <div style="text-align: center;">
+                <span class="section-label"><i class="fa-solid fa-hammer"></i> Uygulama Kalemleri</span>
+                <h2 class="section-title">Uzmanlık Alanlarımız</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-block anim-fold-up">
+                    <i class="fa-solid fa-scissors"></i>
+                    <h3>Kuaförlük & Kesim</h3>
+                    <p>Kafa tası yapınıza ve saç yönünüze göre mimari bir titizlikle tasarlanan klasik ve modern kesimler.</p>
+                </div>
+                <div class="service-block anim-fold-up del-1">
+                    <i class="fa-solid fa-fire-burner"></i>
+                    <h3>Sakal Kesimi & Tasarım</h3>
+                    <p>Sıcak havlu kompresi, ustura işçiliği ve cildi rahatlatan premium bakım yağlarıyla sakal ritüeli.</p>
+                </div>
+                <div class="service-block anim-fold-up del-2">
+                    <i class="fa-solid fa-wind"></i>
+                    <h3>Profesyonel Fön</h3>
+                    <p>Saça hacim veren ve en sert hava koşullarında dahi duruşunu bozmayan kalıcı fön teknikleri.</p>
+                </div>
+                <div class="service-block anim-fold-up">
+                    <i class="fa-solid fa-ruler-combined"></i>
+                    <h3>İple Kaş Alımı</h3>
+                    <p>Bakışlardaki sertliği bozmadan, sadece çevresel fazlalıkları temizleyen simetrik kaş alımı.</p>
+                </div>
+                <div class="service-block anim-fold-up del-1">
+                    <i class="fa-solid fa-bolt"></i>
+                    <h3>Saç Düzleştirme</h3>
+                    <p>Sert ve şekil almayan asi saçları, keratin teknolojisiyle uzun süreli pürüzsüzlüğe kavuşturma.</p>
+                </div>
+                <div class="service-block anim-fold-up del-2">
+                    <i class="fa-solid fa-user-ninja"></i>
+                    <h3>Karakteristik Topuz</h3>
+                    <p>Uzun saçlı misafirlerimiz için samuray tarzı (man-bun) karizmatik saç toplama ve sabitleme.</p>
+                </div>
+                <div class="service-block anim-fold-up" style="grid-column: 1 / -1; max-width: 500px; margin: 0 auto; text-align:center;">
+                    <i class="fa-solid fa-child"></i>
+                    <h3>Çocuk Saç Kesimi</h3>
+                    <p>Geleceğin beyefendileri için sabırlı, özenli ve havalı stil oluşturma seansları.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. YORUMLAR BÖLÜMÜ -->
+    <section id="yorumlar">
+        <div class="premium-box anim-noir-fade">
+            <div style="text-align: center;">
+                <span class="section-label"><i class="fa-solid fa-quote-right"></i> Sadakat</span>
+                <h2 class="section-title">Müdavimlerin Gözünden</h2>
+            </div>
+            <div class="marquee-container">
+                <div class="marquee-track" id="review-track">
+                    <!-- Javascript ile doldurulacak -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. SIKÇA SORULAN SORULAR -->
+    <section id="sss">
+        <div class="premium-box anim-clip-polygon">
+            <div style="text-align: center;">
+                <span class="section-label"><i class="fa-solid fa-clipboard-question"></i> Bilgi Dağarcığı</span>
+                <h2 class="section-title">Merak Edilenler</h2>
+            </div>
+            <div class="faq-layout">
+                <div class="faq-row">
+                    <div class="faq-head">
+                        <h3>Gece yarısı randevusuz gelirsem bekler miyim?</h3>
+                        <div class="faq-icon"><i class="fa-solid fa-plus"></i></div>
+                    </div>
+                    <div class="faq-body">
+                        <p>24 saat kesintisiz hizmet vermekteyiz. Ekibimiz gece saatlerinde de tam kadroya yakın çalışmaktadır. Yine de gelmeden 15 dakika önce aramanız, bekleme sürenizi tamamen sıfırlayacaktır.</p>
+                    </div>
+                </div>
+                <div class="faq-row">
+                    <div class="faq-head">
+                        <h3>Kullanılan ürünler saç döker mi veya zarar verir mi?</h3>
+                        <div class="faq-icon"><i class="fa-solid fa-plus"></i></div>
+                    </div>
+                    <div class="faq-body">
+                        <p>Salonumuzda kesinlikle market grubu ürünler kullanılmaz. Saç köklerini besleyen, dökülme karşıtı premium berber serisi pomatlar, killer ve şampuanlar tercih edilmektedir.</p>
+                    </div>
+                </div>
+                <div class="faq-row">
+                    <div class="faq-head">
+                        <h3>Sakal tıraşında sıcak havlu neden önemlidir?</h3>
+                        <div class="faq-icon"><i class="fa-solid fa-plus"></i></div>
+                    </div>
+                    <div class="faq-body">
+                        <p>Sıcak havlu kompresi, cilt gözeneklerini açıp sakalı yumuşatır. Bu ritüel usturanın cildi tahriş etmesini engellerken, günün stresini alan harika bir maskülen spa hissiyatı yaratır.</p>
+                    </div>
+                </div>
+                <div class="faq-row">
+                    <div class="faq-head">
+                        <h3>Pazar günleri neden kapalısınız?</h3>
+                        <div class="faq-icon"><i class="fa-solid fa-plus"></i></div>
+                    </div>
+                    <div class="faq-body">
+                        <p>Haftanın 6 günü 24 saat süren yoğun operasyonumuzun ardından, ekibimizin dinlenmesi ve salonumuzun endüstriyel hijyen standartlarında sterilize edilmesi için Pazar günleri kapalıyız.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. İLETİŞİM BÖLÜMÜ -->
+    <section id="iletisim">
+        <div class="premium-box anim-z-slide">
+            <div style="text-align: center;">
+                <span class="section-label"><i class="fa-solid fa-location-dot"></i> Koordinat</span>
+                <h2 class="section-title">Koltukta Yerini Al</h2>
+            </div>
+            <div class="contact-grid">
+                <div>
+                    <h3 style="font-family: 'Cinzel', serif; color: var(--gold-solid); margin-bottom: 30px; font-size: 1.5rem;">Operasyon Saatleri</h3>
+                    <ul class="hours-list">
+                        <li class="open"><span>Pazartesi</span> <span>24 Saat Açık</span></li>
+                        <li class="open"><span>Salı</span> <span>24 Saat Açık</span></li>
+                        <li class="open"><span>Çarşamba</span> <span>24 Saat Açık</span></li>
+                        <li class="open"><span>Perşembe</span> <span>24 Saat Açık</span></li>
+                        <li class="open"><span>Cuma</span> <span>24 Saat Açık</span></li>
+                        <li class="open"><span>Cumartesi</span> <span>24 Saat Açık</span></li>
+                        <li class="closed"><span>Pazar</span> <span>Kapalı</span></li>
+                    </ul>
+                </div>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+                        <div class="contact-text">
+                            <h4>Acil Hat / Rezervasyon</h4>
+                            <p>0534 209 12 03</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fa-brands fa-instagram"></i></div>
+                        <div class="contact-text">
+                            <h4>Dijital Portfolyo</h4>
+                            <p>@gurfidanhairsaloon</p>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="tel:05342091203" class="btn-solid-gold">
+                            <i class="fa-solid fa-phone-volume"></i> VIP Randevu Oluştur
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="background: var(--dark-void); padding: 40px; text-align: center; border-top: 1px solid var(--glass-border); color: #555; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase;">
+        <p>&copy; 2026 Gürfidan Hair Saloon. Isparta'nın Lüks Erkek Kulübü. Tüm Hakları Saklıdır.</p>
+    </footer>
+
+<!-- =====================================================================
+     PARÇA 3: JAVASCRIPT (YAĞMUR SİMÜLASYONU VE MEKANİKLER)
+     ===================================================================== -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        
+        /* --- 1. SİLİNMEYECEK, MASKÜLEN 15 DOĞAL YORUM --- */
+        const comments = [
+            { text: "Gecenin 3'ünde bile aynı özenle tıraş eden tek yer. Sıcak havluyla sakal tıraşı efsane.", author: "Kaan T." },
+            { text: "Isparta'da esnaf olarak saatlerim belirsiz, 24 saat açık olmaları büyük lüks. İşçilik muazzam.", author: "Murat Y." },
+            { text: "Oğlumun ilk tıraşını burada yaptırdık. Çocuklara yaklaşımları çok profesyonel ve sabırlı.", author: "Hakan E." },
+            { text: "Fön çektirdikten sonra ertesi gün bile saçım bozulmuyor. Gerçekten kaliteli ürünler kullanıyorlar.", author: "Burak C." },
+            { text: "Uzun saçlarım için topuz modeli yaptırdım, tam istediğim karizmatik duruşu yakaladılar.", author: "Sinan D." },
+            { text: "İple kaş alımında çok hassaslar, ifadedeki sertliği bozmadan çok doğal bir temizlik yapıyorlar.", author: "Emre A." },
+            { text: "Saç düzleştirme işlemi yaptırdım. Saçlarım yıpranmadan dümdüz oldu, işlerinin ehli insanlar.", author: "Tarık B." },
+            { text: "Salonun atmosferi tam bir erkek kulübü gibi. Klasik berber muhabbetinden ziyade çok kaliteli bir ortam var.", author: "Volkan S." },
+            { text: "Randevu almama rağmen gece yarısı gittiğimde bile anında ilgilendiler. Hizmet kalitesi üst düzey.", author: "Ozan K." },
+            { text: "Isparta'da bu kadar premium hissiyat veren başka bir salon yok. Fiyatını sonuna kadar hak ediyor.", author: "Alperen M." },
+            { text: "Sakal kesimi sırasında kullandıkları ürünlerin kokusu ve rahatlatıcı masaj harika bir detay.", author: "Cemil T." },
+            { text: "Saç kesimimi yüz hatlarıma göre kendileri tasarladılar. Etrafımdaki herkes nerede kestirdiğimi soruyor.", author: "Doğukan V." },
+            { text: "Gece vardiyasından çıkıp sabah 5'te tıraş olabilmek harika. Gürfidan ekibi hiç yorulmuyor sanki.", author: "Serkan L." },
+            { text: "Temizlik ve hijyen konusunda çok titizler. Kullanılan her alet gözünüzün önünde sterilize ediliyor.", author: "Görkem F." },
+            { text: "Hem muhabbetleri hem de el yetenekleri muazzam. Isparta'nın tartışmasız en iyi erkek kuaförü.", author: "Yasin R." }
+        ];
+
+        const track = document.getElementById('review-track');
+        const generateReviews = () => {
+            let html = '';
+            comments.forEach(c => {
+                html += `
+                    <div class="review-card">
+                        <div class="stars">
+                            <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> 
+                            <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> 
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="review-text">"${c.text}"</p>
+                        <p class="review-author">- ${c.author}</p>
+                    </div>
+                `;
+            });
+            return html;
+        };
+        // Sağa doğru kusursuz akış için içerik çiftlenir
+        track.innerHTML = generateReviews() + generateReviews();
+
+        /* --- 2. HTML5 CANVAS GERÇEKÇİ YAĞMUR EFEKTİ --- */
+        const canvas = document.getElementById('rain-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+        
+        const raindrops = [];
+        const MAX_DROPS = 120; // Rüzgarlı, sinematik yağmur yoğunluğu
+
+        class Drop {
+            constructor() {
+                this.init();
+            }
+            init() {
+                this.x = Math.random() * width * 1.2; // Rüzgar payı için geniş alan
+                this.y = Math.random() * -height;
+                this.speedY = Math.random() * 12 + 15; // Düşme hızı
+                this.speedX = -2; // Sola doğru rüzgar etkisi
+                this.length = Math.random() * 25 + 15; // Damla uzunluğu
+                this.opacity = Math.random() * 0.3 + 0.1; // Karanlık ortama uygun loşluk
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                if (this.y > height || this.x < 0) { this.init(); }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                // Rüzgar açısına uygun çizim
+                ctx.lineTo(this.x + this.speedX, this.y + this.length);
+                ctx.strokeStyle = `rgba(180, 180, 200, ${this.opacity})`;
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        }
+
+        for(let i = 0; i < MAX_DROPS; i++) { raindrops.push(new Drop()); }
+
+        function animateRain() {
+            ctx.clearRect(0, 0, width, height);
+            raindrops.forEach(drop => { drop.update(); drop.draw(); });
+            requestAnimationFrame(animateRain);
+        }
+        animateRain();
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        /* --- 3. SSS (ACCORDION) MEKANİZMASI --- */
+        const faqRows = document.querySelectorAll('.faq-row');
+        faqRows.forEach(row => {
+            row.querySelector('.faq-head').addEventListener('click', () => {
+                faqRows.forEach(r => { if(r !== row) r.classList.remove('active'); });
+                row.classList.toggle('active');
+            });
+        });
+
+        /* --- 4. PREMİUM SCROLL ANİMASYON TETİKLEYİCİSİ --- */
+        const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, observerOptions);
+
+        const targets = document.querySelectorAll(
+            '.anim-blur-scale, .anim-3d-rotate, .anim-fold-up, .anim-noir-fade, .anim-clip-polygon, .anim-z-slide'
+        );
+        targets.forEach(target => observer.observe(target));
+
+    });
+</script>
+</body>
+</html>
